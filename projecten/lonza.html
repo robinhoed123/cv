@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bachelorproef Lonza – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link active" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <a class="button glass back-button" href="software.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Terug naar software projecten
+        </a>
+
+        <!-- Different layout: full poster first, then the text, then the thesis PDF -->
+        <article class="panel glass project-body">
+            <span class="accent-line"></span>
+            <h1>Bachelorproef bij Lonza</h1>
+
+            <img class="project-poster" src="../assets/projecten/software/Lonza/Poster%20batchlorproof-1.png" alt="Poster van de bachelorproef bij Lonza">
+
+            <h3>Het probleem</h3>
+            <p>Bij Lonza is het opzoeken van informatie over een onderdeel tijdrovend. Je moet eerst het elektrisch schema zoeken, dan uitzoeken welk component vervangen moet worden, waar het in het magazijn ligt en of het op voorraad is. Daarna moet je ook nog de documentatie zoeken, vaak online en per component. Is een onderdeel niet op voorraad, dan moet dit voor elk alternatief opnieuw gebeuren.</p>
+
+            <h3>De oplossing</h3>
+            <p>Alle bedrijfsgegevens worden samengebracht in een knowledge graph in Neo4j. Elk onderdeel is een node, gekoppeld aan zijn PDF-documentatie, die is opgesplitst in pagina's, tabellen, tekst en afbeeldingen. Neo4j werd gekozen omdat het naast vector search ook expliciete relaties tussen data ondersteunt.</p>
+
+            <h3>Data verzamelen</h3>
+            <ul>
+                <li>Magazijndata komt uit een Excel-bestand met alle componenten.</li>
+                <li>Omdat niet voor elk onderdeel documentatie beschikbaar was, ontwikkelde ik een web scraper die de PDF-documentatie automatisch downloadt, geordend per merk.</li>
+                <li>Ik bouwde ook een pipeline om data uit DWG-bestanden te halen. Die bleek onbruikbaar omdat de metadata bij meer dan 80% van de onderdelen niet was ingevuld. Daarom ging ik over op OCR met PaddleOCR.</li>
+            </ul>
+
+            <h3>Hoe het systeem een onderdeel herkent</h3>
+            <p>Met OCR wordt tekst uit een foto of een PDF-tekening gehaald. Daarna zoekt een vector similarity search in Neo4j het bijhorende onderdeel. Ik vergeleek twee methodes: één master embedding per onderdeel, en Weighted Reciprocal Rank Fusion (RRF) met een aparte embedding per property, waarvan de gewichten werden geoptimaliseerd met Bayesian optimization.</p>
+
+            <h3>Testen en resultaten</h3>
+            <p>Mijn eerste handgemaakte testset (82 onderdelen) bleek voor ongeveer 35% vervuild, door verkeerd teruggeplaatste onderdelen en typfouten. Daarom ontwikkelde ik een synthetische testset met gesimuleerde OCR-ruis, waarbij je zelf kan instellen hoeveel data en ruis elk item bevat. Daarmee testte ik meerdere embedding-modellen. EmbeddingGemma presteerde zelfs zonder RRF beter dan het veel grotere Octen-Embedding met RRF, en is bovendien lichter en sneller. RRF gaf maar een kleine verbetering en kost veel extra zoekopdrachten.</p>
+
+            <h3>Het eindproduct</h3>
+            <p>De applicatie draait lokaal en bestaat uit:</p>
+            <ul>
+                <li>een pagina om onderdelen te vinden via een foto</li>
+                <li>een infopagina met productgegevens, voorraad, magazijnlocatie op een plattegrond en een documentatiepreview</li>
+                <li>een offline RAG-chatbot voor vragen over de documentatie</li>
+                <li>een pagina om PDF- of DWG-schema's te uploaden en om te zetten naar een smart PDF waarin je op onderdelen kan klikken</li>
+            </ul>
+
+            <h3>Afwijkingen en vooruitzichten</h3>
+            <p>Het verwerken van PLC-code is niet gelukt. Het is veel complexer dan ingeschat en de meerwaarde was beperkt. Als vervanging kan je nu onderdelen terugvinden via een foto. Ik ontwikkelde ook een aanpak met image recognition, maar die was niet praktisch voor 20.000 onderdelen en kon visueel gelijkaardige onderdelen niet onderscheiden. Een idee van mijn stagementor is om QR-codes op elektrische borden te plaatsen die rechtstreeks naar de juiste smart PDF linken.</p>
+        </article>
+
+        <section class="panel glass pdf-panel">
+            <object class="pdf-viewer" data="../assets/projecten/software/Lonza/Scriptie.pdf" type="application/pdf">
+                <div class="pdf-fallback">
+                    <p>Je browser kan deze PDF niet weergeven.</p>
+                    <a class="button button-primary" href="../assets/projecten/software/Lonza/Scriptie.pdf" download>Download de scriptie</a>
+                </div>
+            </object>
+        </section>
+
+        <div class="pdf-actions">
+            <a class="button button-primary" href="../assets/projecten/software/Lonza/Scriptie.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                Download PDF
+            </a>
+        </div>
+    </main>
+</body>
+</html>

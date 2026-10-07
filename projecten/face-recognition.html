@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face recognition – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link active" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <a class="button glass back-button" href="software.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Terug naar software projecten
+        </a>
+
+        <article class="panel glass project-body">
+            <span class="accent-line"></span>
+            <h1>Face recognition</h1>
+
+            <!-- Photo gallery: add or remove <img> tags, main.js handles the rest -->
+            <div class="gallery">
+                <div class="gallery-frame">
+                    <img src="../assets/projecten/software/face%20recegision/1.png" alt="Face recognition, foto 1">
+                    <img src="../assets/projecten/software/face%20recegision/2.PNG" alt="Face recognition, foto 2">
+                </div>
+            </div>
+
+            <h3>Het idee</h3>
+            <p>Dit project was een opdracht voor het vak AI Frameworks. Het doel: een afbeelding met klasgenoten als input nemen en per persoon de juiste naam teruggeven. Ik werkte met twaalf personen, mezelf inbegrepen.</p>
+
+            <h3>Data verzamelen en opschonen</h3>
+            <p>Ik begon met 454 foto's en 11 video's, waarvan ik er 9 gebruikte. Ik labelde de personen in de video's met Label Studio en schreef eigen scripts om die labels om te zetten naar het YOLO-formaat. Dat gaf drie datasets van elk ongeveer 3200 voorbeelden: één met volledige lichamen, één met een map per persoon en één met enkel gezichten. Ook schreef ik een eigen editor om labels te bekijken, te verwijderen en aan te passen. Ik merkte dat sommige personen veel vaker in de video's voorkwamen dan andere en balanceerde de dataset daarom bij.</p>
+
+            <h3>YOLO: personen herkennen op het hele lichaam</h3>
+            <p>Ik trainde verschillende YOLO-modellen. Mijn eerste model werkte slecht zodra er meerdere personen in beeld stonden. Daarna verbeterde ik de dataset, gebruikte ik een groter model (YOLO11 X) en voegde ik augmentaties toe. Dat gaf een veel beter model, met een mAP50 van ongeveer 0,99 op de validatieset. Op de testset met foto's presteerde het echter slechter. De modellen leerden vooral personen die ver van de camera staan, terwijl de foto's vaak van dichterbij zijn. Een apart model per persoon trainen bleek niet praktisch, omdat de herkenning dan veel te lang duurt.</p>
+
+            <h3>Gezichtsherkenning</h3>
+            <p>Ik koos InsightFace met het model buffalo_l, omdat DeepFace te veel problemen gaf met de GPU. Ik haalde alle gezichten uit mijn dataset, maakte er embeddings van (512 getallen per gezicht) en vergeleek nieuwe gezichten met cosine similarity. Ik testte ook andere modellen, afbeeldingsgroottes en zwart-wit tegenover kleur. Voor de visualisatie van de embeddings vergeleek ik PCA, t-SNE en UMAP. UMAP gaf het beste evenwicht.</p>
+
+            <h3>Meerdere methodes combineren</h3>
+            <p>Geen enkele methode was perfect, dus combineerde ik er drie: gewone gezichtsherkenning, herkenning op een gespiegelde afbeelding (die andere gezichten vindt) en YOLO. Een samenvoeglogica kiest per gezicht de beste voorspelling. Zo werden bijna alle personen gevonden en waren er minder foute voorspellingen.</p>
+
+            <h3>Webinterface en segmentatie</h3>
+            <p>Met Gradio bouwde ik een webinterface waarin je een foto uploadt, de methodes kiest en het resultaat ziet. Omdat ik niet tevreden was met enkel kaders rond gezichten, voegde ik SAM3 van Meta toe. Dat vindt alle personen in de foto, en elke persoon krijgt een gekleurd masker met de juiste naam.</p>
+
+            <h3>Wat ik geleerd heb</h3>
+            <p>Het opschonen en maken van datasets kostte het meeste tijd, en gezichtsherkenning werkte hier beter dan YOLO. Een volgende keer zou ik met minder en minder herhalende data beginnen. Ik zou ook een YOLO-segmentatiemodel testen en een eigen CNN van nul trainen.</p>
+        </article>
+
+        <section class="panel glass pdf-panel">
+            <object class="pdf-viewer" data="../assets/projecten/software/face%20recegision/raport.pdf" type="application/pdf">
+                <div class="pdf-fallback">
+                    <p>Je browser kan deze PDF niet weergeven.</p>
+                    <a class="button button-primary" href="../assets/projecten/software/face%20recegision/raport.pdf" download>Download het rapport</a>
+                </div>
+            </object>
+        </section>
+
+        <div class="pdf-actions">
+            <a class="button button-primary" href="../assets/projecten/software/face%20recegision/raport.pdf" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                Download PDF
+            </a>
+        </div>
+    </main>
+</body>
+</html>

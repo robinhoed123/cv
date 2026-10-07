@@ -1,0 +1,854 @@
+/* =========================================================
+   Portfolio – shared stylesheet
+   Change the theme by editing the variables in :root.
+   ========================================================= */
+
+:root {
+    /* Colors */
+    --color-accent: #7cc4f5;
+    --color-accent-light: #a9dafb;
+    --color-accent-dark: #3a9be0;
+    --color-text: #2b2f36;
+    --color-text-muted: #5d6673;
+    --color-bg-top: #ffffff;
+    --color-bg-bottom: #e6f3fd;
+
+    /* Background photo: raise opacity / lower blur to show more of the image */
+    --bg-image: url("../assets/background.jpg");
+    --bg-image-blur: 16px;
+    --bg-image-opacity: 0.7;
+
+    /* Glass */
+    --glass-bg: rgba(255, 255, 255, 0.45);
+    --glass-bg-hover: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.75);
+    --glass-blur: 18px;
+    --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    --shadow-soft: 0 8px 32px rgba(40, 80, 130, 0.12);
+    --shadow-strong: 0 18px 44px rgba(40, 80, 130, 0.2);
+
+    /* Grain texture laid over every glass surface */
+    --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E");
+
+    /* Shape */
+    --radius-large: 24px;
+    --radius: 20px;
+    --radius-small: 16px;
+    --radius-pill: 999px;
+
+    /* Motion */
+    --transition-fast: 200ms ease;
+    --transition: 250ms ease;
+
+    /* Layout */
+    --content-width: 1100px;
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--color-text);
+    background: linear-gradient(160deg, var(--color-bg-top) 0%, #f2f8fe 45%, var(--color-bg-bottom) 100%);
+    background-attachment: fixed;
+    animation: page-fade-in 350ms ease both;
+}
+
+/* Fade-out state set by main.js right before navigating away */
+body.is-leaving {
+    animation: page-fade-out 200ms ease both;
+}
+
+@keyframes page-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes page-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+    margin: 0 0 0.6em;
+    font-weight: 700;
+}
+
+h1 { font-size: 2.6rem; letter-spacing: -0.02em; }
+h2 { font-size: 1.7rem; letter-spacing: -0.01em; }
+h3 { font-size: 1.25rem; }
+
+p {
+    margin: 0 0 1em;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* ---------- Background photo (blurred and faded into the light gradient) ---------- */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: var(--bg-image) center / cover no-repeat;
+    filter: blur(var(--bg-image-blur)) saturate(0.85);
+    opacity: var(--bg-image-opacity);
+    transform: scale(1.1); /* hides the soft edges the blur creates */
+    pointer-events: none;
+}
+
+/* ---------- Background blobs (make the blur visible) ---------- */
+
+.background-blobs {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.background-blobs span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+}
+
+.background-blobs span:nth-child(1) {
+    width: 520px;
+    height: 520px;
+    top: -120px;
+    left: -100px;
+    background: var(--color-accent-light);
+}
+
+.background-blobs span:nth-child(2) {
+    width: 460px;
+    height: 460px;
+    top: 35%;
+    right: -140px;
+    background: var(--color-accent);
+    opacity: 0.4;
+}
+
+.background-blobs span:nth-child(3) {
+    width: 400px;
+    height: 400px;
+    bottom: -140px;
+    left: 30%;
+    background: #d4ecff;
+}
+
+/* ---------- Glass surface ---------- */
+
+.glass {
+    background-color: var(--glass-bg);
+    background-image: var(--noise);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--glass-highlight), var(--shadow-soft);
+}
+
+/* ---------- Navigation ---------- */
+
+.site-header {
+    position: sticky;
+    top: 16px;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    padding: 0 24px;
+    margin-top: 16px;
+}
+
+.navbar {
+    border-radius: var(--radius-large);
+    padding: 8px;
+}
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 22px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 4px 14px rgba(40, 80, 130, 0.1);
+}
+
+.nav-link.active {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(124, 196, 245, 0.55);
+}
+
+.nav-link.active:hover {
+    background-color: var(--color-accent-dark);
+}
+
+.nav-link:focus-visible,
+.button:focus-visible,
+.project-card:focus-visible,
+.dropdown-link:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+/* ---------- Projects dropdown ---------- */
+
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-arrow {
+    width: 10px;
+    height: 10px;
+    transition: transform var(--transition-fast);
+}
+
+.nav-dropdown:hover .dropdown-arrow,
+.nav-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    min-width: 230px;
+    margin: 0;
+    padding: 8px;
+    list-style: none;
+    border-radius: var(--radius-small);
+    background-color: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -8px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+}
+
+/* Invisible bridge so the menu stays open while moving the mouse into it */
+.dropdown-menu::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -14px;
+    height: 14px;
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.dropdown-link {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dropdown-link:hover {
+    background-color: rgba(169, 218, 251, 0.45);
+}
+
+.dropdown-link.active {
+    color: var(--color-accent-dark);
+    background-color: rgba(169, 218, 251, 0.3);
+}
+
+/* ---------- Page layout ---------- */
+
+.page {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header p {
+    max-width: 640px;
+    margin: 0 auto;
+    color: var(--color-text-muted);
+}
+
+.panel {
+    padding: 40px;
+    border-radius: var(--radius-large);
+}
+
+.panel + .panel {
+    margin-top: 28px;
+}
+
+.accent-line {
+    display: block;
+    width: 48px;
+    height: 4px;
+    margin-bottom: 18px;
+    border-radius: var(--radius-pill);
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+}
+
+.muted {
+    color: var(--color-text-muted);
+}
+
+/* ---------- Buttons ---------- */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 26px;
+    border-radius: var(--radius-pill);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.button:hover {
+    background-color: var(--glass-bg-hover);
+    box-shadow: var(--glass-highlight), var(--shadow-strong);
+    transform: translateY(-2px);
+}
+
+.button svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.button-primary {
+    background-color: var(--color-accent);
+    background-image: var(--noise);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: var(--glass-highlight), 0 6px 20px rgba(124, 196, 245, 0.5);
+}
+
+.button-primary:hover {
+    background-color: var(--color-accent-dark);
+    box-shadow: var(--glass-highlight), 0 10px 26px rgba(58, 155, 224, 0.45);
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+/* ---------- Home ---------- */
+
+/* Contact buttons side by side, right under the introduction */
+.contact-buttons {
+    margin-top: 24px;
+}
+
+.panel p a {
+    color: var(--color-accent-dark);
+    font-weight: 600;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+}
+
+.photo-frame {
+    flex-shrink: 0;
+    padding: 12px;
+    border-radius: 32px;
+}
+
+.photo-frame img {
+    width: 280px;
+    height: 340px;
+    object-fit: cover;
+    border-radius: var(--radius-large);
+}
+
+.hero-text h1 span {
+    color: var(--color-accent-dark);
+}
+
+
+/* ---------- PDF viewer pages ---------- */
+
+.pdf-panel {
+    padding: 20px;
+}
+
+.pdf-viewer {
+    display: block;
+    width: 100%;
+    height: 78vh;
+    min-height: 600px;
+    border: none;
+    border-radius: var(--radius-small);
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.pdf-fallback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px;
+    text-align: center;
+}
+
+/* Company logo above the motivation letter */
+.company-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 28px;
+}
+
+.company-logo img {
+    height: 120px;
+    width: auto;
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+}
+
+.pdf-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+/* ---------- Project list (zigzag) ---------- */
+
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.project-card {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 24px;
+    border-radius: var(--radius-large);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+/* Every second card flips: text left, image right */
+.project-card:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.project-card:hover {
+    background-color: var(--glass-bg-hover);
+    transform: translateY(-7px);
+    box-shadow: var(--glass-highlight), var(--shadow-strong);
+}
+
+.project-image {
+    flex: 0 0 46%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 400ms ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.03);
+}
+
+/* Add class="fit" to the .project-image div to show the whole image uncropped */
+.project-image.fit {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Solid white box instead of see-through (used on the software list) */
+.solid-fit .project-image.fit {
+    background-color: #ffffff;
+}
+
+.project-image.fit img {
+    object-fit: contain;
+}
+
+.project-info {
+    flex: 1;
+    padding: 8px;
+}
+
+.project-info p {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+}
+
+/* ---------- Project detail page ---------- */
+
+.back-button {
+    margin-bottom: 32px;
+}
+
+.project-detail-image {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin-bottom: 32px;
+}
+
+/* Full-size image that is shown uncropped (e.g. a portrait poster) */
+.project-poster {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    margin-bottom: 32px;
+}
+
+.project-body h3 {
+    margin-top: 1.6em;
+}
+
+.project-body ul {
+    margin: 0 0 1em;
+    padding-left: 1.3em;
+}
+
+.project-body li {
+    margin-bottom: 0.35em;
+}
+
+.project-body a {
+    color: var(--color-accent-dark);
+}
+
+.project-links {
+    margin-top: 32px;
+}
+
+.project-section {
+    margin-top: 40px;
+}
+
+/* ---------- Photo gallery (one image, click for the next) ---------- */
+
+.gallery {
+    margin-bottom: 32px;
+}
+
+.gallery-frame {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* All images are stacked; only the active one is visible */
+.gallery-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 350ms ease;
+}
+
+.gallery-frame img.is-active {
+    opacity: 1;
+}
+
+.gallery.has-multiple .gallery-frame {
+    cursor: pointer;
+}
+
+.gallery.has-multiple .gallery-frame:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+.gallery-counter {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 1;
+    padding: 4px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+.gallery-next {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    opacity: 0.6;
+    transform: translateY(-50%);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    pointer-events: none;
+}
+
+.gallery-next svg {
+    width: 22px;
+    height: 22px;
+}
+
+.gallery-frame:hover .gallery-next {
+    opacity: 1;
+    transform: translate(3px, -50%);
+}
+
+.gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.gallery-dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-pill);
+    background-color: rgba(58, 155, 224, 0.25);
+    cursor: pointer;
+    transition: width var(--transition-fast), background-color var(--transition-fast);
+}
+
+.gallery-dot.is-active {
+    width: 26px;
+    background-color: var(--color-accent-dark);
+}
+
+/* ---------- Orrery: interactive planet info ---------- */
+
+/* Title + dropdown and the rotating planet sit on the page; only the facts are in a white box */
+.planet-explorer {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-top: 56px;
+}
+
+.planet-card {
+    padding: 32px 40px;
+    border-radius: var(--radius-large);
+    background-color: #ffffff;
+    box-shadow: var(--shadow-soft);
+}
+
+.planet-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.planet-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.planet-header h2 {
+    margin: 0;
+}
+
+.planet-select {
+    padding: 10px 44px 10px 20px;
+    border: 1px solid rgba(58, 155, 224, 0.35);
+    border-radius: var(--radius-pill);
+    background-color: #ffffff;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 3l4 4 4-4' fill='none' stroke='%232b2f36' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 10px;
+    transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.planet-select:hover {
+    background-color: rgba(169, 218, 251, 0.45);
+}
+
+.planet-select:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
+/* Label left, value right, thin divider between rows; two columns side by side */
+.planet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    margin: 0 0 28px;
+}
+
+/* Fixed label width so every value starts at the same spot, left-aligned */
+.planet-stats > div {
+    display: grid;
+    grid-template-columns: 145px 1fr;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(58, 155, 224, 0.18);
+}
+
+/* Atmosphere spans the full width so long lists fit on one line */
+.planet-stats > div:last-child {
+    grid-column: 1 / -1;
+}
+
+.planet-stats dt {
+    font-size: 0.92rem;
+    color: var(--color-text-muted);
+}
+
+.planet-stats dd {
+    margin: 0;
+    font-weight: 600;
+}
+
+.planet-fact {
+    margin: 0;
+    padding-left: 16px;
+    border-left: 4px solid var(--color-accent);
+}
+
+.planet-fact strong {
+    color: var(--color-accent-dark);
+}
+
+.planet-visual {
+    flex: 0 0 240px;
+    text-align: center;
+}
+
+.planet-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+
+.planet-name {
+    margin: 12px 0 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+@media (max-width: 860px) {
+    .planet-explorer {
+        flex-direction: column-reverse;
+        gap: 24px;
+    }
+
+    .planet-card {
+        padding: 24px;
+    }
+
+    .planet-visual {
+        flex-basis: auto;
+        width: 200px;
+    }
+
+    .planet-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Embedded video ---------- */
+
+.video-embed {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    border-radius: var(--radius);
+    background-color: #000000;
+}

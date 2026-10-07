@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweede kans – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link active" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <a class="button glass back-button" href="software.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Terug naar software projecten
+        </a>
+
+        <article class="panel glass project-body">
+            <span class="accent-line"></span>
+            <h1>Tweede kans</h1>
+
+            <!-- Photo gallery: add or remove <img> tags, main.js handles the rest -->
+            <div class="gallery">
+                <div class="gallery-frame">
+                    <img src="../assets/projecten/software/2deKans/1.PNG" alt="Tweede kans, foto 1">
+                    <img src="../assets/projecten/software/2deKans/2.PNG" alt="Tweede kans, foto 2">
+                    <img src="../assets/projecten/software/2deKans/3.PNG" alt="Tweede kans, foto 3">
+                </div>
+            </div>
+
+            <h3>Waarom deze app?</h3>
+            <p>Het is mijn hobby om kapotte elektronica te herstellen en door te verkopen als refurbished. Deze app houdt bij hoeveel ik daaraan verdien.</p>
+
+            <h3>Het idee</h3>
+            <p>Tweede kans is een app waarmee je bijhoudt welke tweedehandsspullen je koopt en doorverkoopt, en hoeveel je daaraan verdient. Per item noteer je de aankoopprijs, de verkoopprijs, eventuele extra kosten, de data en het platform (Vinted, 2dehands, Marktplaats, eBay of iets anders).</p>
+
+            <h3>Opbouw</h3>
+            <p>Het project bestaat uit drie delen:</p>
+            <ul>
+                <li>een SQL Server-database met één tabel voor de items</li>
+                <li>een ASP.NET Core Web API (.NET 8) die de database leest en aanpast</li>
+                <li>een .NET MAUI-app die als gebruikersinterface dient op Windows en Android</li>
+            </ul>
+            <p>De database en de API draaien samen in Docker. Zo start je ze met één commando en blijven de gegevens bewaard als de containers stoppen.</p>
+
+            <h3>De API</h3>
+            <p>Elk item heeft een titel, beschrijving, platform, aankoopprijs, verkoopprijs, omkosten, aankoopdatum en een optionele verkoopdatum. Is er geen verkoopdatum, dan is het item nog niet verkocht. De API kan items ophalen, één item ophalen, een item toevoegen en een item verwijderen. In de ontwikkelomgeving test je ze via Swagger.</p>
+
+            <h3>De app</h3>
+            <p>De app is opgebouwd volgens het MVVM-patroon met de CommunityToolkit.Mvvm-bibliotheek en navigeert met Shell-routes. Een aparte service praat met de API. Per item berekent de app automatisch de winst of het verlies (verkoopprijs min aankoopprijs en omkosten) en toont een statustekst zoals "25€ winst", "-10€ verlies" of "nog niet verkocht".</p>
+
+            <h3>De schermen</h3>
+            <ul>
+                <li><strong>Hoofdscherm:</strong> al je items in een lijst met een checkbox. De totale winst onderaan is de som van de aangevinkte items. Je kan alles tegelijk aan- of uitvinken, sorteren op naam, aankoopdatum, verkoopdatum of winst, de lijst omdraaien en zoeken op titel. Lukt het ophalen van de items niet, dan zie je een foutpagina die zegt dat je eerst de database en API met Docker moet opstarten.</li>
+                <li><strong>Detailscherm:</strong> alle gegevens van het item, met de winst of het verlies, het rendement (ROI, winst gedeeld door aankoopprijs) en de verkooptijd in jaren, maanden en dagen.</li>
+                <li><strong>Bewerkscherm:</strong> hier voeg je items toe of pas je ze aan. Voor het opslaan controleert de app of titel en beschrijving ingevuld zijn en of de verkoopdatum niet voor de aankoopdatum ligt. Gaat er iets mis met de API, dan krijg je een foutmelding.</li>
+            </ul>
+
+            <section class="project-section">
+                <h3>Demo</h3>
+                <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/Z79_FD3oZEU" title="Tweede kans demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+            </section>
+        </article>
+    </main>
+</body>
+</html>

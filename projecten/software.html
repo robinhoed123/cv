@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software projecten – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link active" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <header class="page-header">
+            <h1>Software projecten</h1>
+        </header>
+
+        <!--
+            Project list. To add a project: copy one <a class="project-card"> block
+            and change the link, image, title and description. The left/right
+            zigzag is handled automatically by the CSS.
+        -->
+        <div class="project-list solid-fit">
+            <a class="project-card glass" href="lonza.html">
+                <div class="project-image">
+                    <img src="../assets/projecten/software/Lonza/Lonza_icon.png" alt="Bachelorproef bij Lonza">
+                </div>
+                <div class="project-info">
+                    <h2>Bachelorproef bij Lonza</h2>
+                    <p>Voor mijn bachelorproef bij Lonza heb ik een systeem gebouwd dat technische schema's, documentatie en magazijninformatie met elkaar verbindt in een Neo4j knowledge graph. Je kan een foto van een onderdeel nemen of in een interactieve smart PDF op een component klikken, en meteen zie je de magazijnlocatie, de voorraad en de documentatie. Via OCR en vector similarity search wordt het juiste onderdeel herkend. Daarnaast kan je via een lokale chatbot vragen stellen over de documentatie.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="face-recognition.html">
+                <div class="project-image">
+                    <img src="../assets/projecten/software/face%20recegision/1.png" alt="Face recognition">
+                </div>
+                <div class="project-info">
+                    <h2>Face recognition</h2>
+                    <p>Dit is een schoolproject voor het vak AI Frameworks waarin ik een systeem bouwde dat klasgenoten herkent op foto's. Ik verzamelde en labelde zelf de data uit video's, trainde YOLO-modellen en testte gezichtsherkenning met InsightFace. Uiteindelijk combineerde ik meerdere methodes tot één voorspelling. Met een Gradio-webinterface en SAM3 krijgt elke herkende persoon ook een gelabeld segmentatiemasker.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="paddenstoel-ai.html">
+                <div class="project-image fit">
+                    <img src="../assets/projecten/software/padenstoelen%20ai/iconl.PNG" alt="PaddenstoelAI">
+                </div>
+                <div class="project-info">
+                    <h2>PaddenstoelAI</h2>
+                    <p>PaddenstoelAI is een machine-learningproject dat voorspelt of een paddenstoel eetbaar of giftig is, op basis van kenmerken zoals de hoed, de steel, de lamellen, het habitat en het seizoen. Ik trainde en vergeleek er meerdere modellen op, waaronder Random Forest, XGBoost en een neuraal netwerk. Via een webinterface vul je de kenmerken in, kies je een model en krijg je een voorspelling met een betrouwbaarheidspercentage.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="tweede-kans.html">
+                <div class="project-image fit">
+                    <img src="../assets/projecten/software/2deKans/icon.PNG" alt="Tweede kans">
+                </div>
+                <div class="project-info">
+                    <h2>Tweede kans</h2>
+                    <p>Ah ja, de klassieke to-do-app die elke software engineer maakt :) Maar dan met een twist: Tweede kans houdt niet je taken bij, maar je tweedehandsspullen. Per item noteer je wat je ervoor betaald hebt en voor hoeveel je het verkocht hebt, en de app rekent automatisch je winst of verlies uit. Je ziet ook je rendement en hoe lang het duurde om iets te verkopen. Zo weet je meteen of je deals op Vinted of 2dehands echt iets opbrengen.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="webshop.html">
+                <div class="project-image">
+                    <img src="../assets/projecten/software/webshop/icon.PNG" alt="Webshop">
+                </div>
+                <div class="project-info">
+                    <h2>Webshop</h2>
+                    <p>Dit is een webshop voor vissen die ik bouwde in PHP met een MySQL-database, als schoolopdracht voor webdesign. Klanten kunnen een account maken, inloggen, producten zoeken, in een winkelmandje stoppen en bestellen. Een admin kan producten toevoegen of aanpassen en klanten beheren. Als decor draait er een video van een aquarium op de achtergrond.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="level-control.html">
+                <div class="project-image">
+                    <img src="../assets/projecten/software/level%20control/icon.PNG" alt="Level Control">
+                </div>
+                <div class="project-info">
+                    <h2>Level Control</h2>
+                    <p>Level Control is een simpele 2D-platformer voor mobiel die ik tijdens de coronalockdown maakte. Het was mijn allereerste ICT-project, nog voordat ik aan mijn ICT-opleiding begon.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="robot-magazijn.html">
+                <div class="project-image fit">
+                    <img src="../assets/projecten/software/robotMagazijn/icon.jpg" alt="Volautomatisch magazijn">
+                </div>
+                <div class="project-info">
+                    <h2>Volautomatisch magazijn</h2>
+                    <p>Voor dit schoolproject bouwden we met een team van acht een volautomatisch magazijn, waarin kleine robots zelfstandig rondrijden en pakjes verplaatsen. Mijn deel was het computervisiegedeelte: zorgen dat een robot zijn omgeving kan zien en afstanden kan inschatten. Dat moest kunnen met enkel een eenvoudige camera. Alles draait lokaal op een Jetson Nano.</p>
+                </div>
+            </a>
+
+        </div>
+    </main>
+</body>
+</html>

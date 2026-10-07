@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omni Direction Car – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link active" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <a class="button glass back-button" href="hardware.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Terug naar hardware projecten
+        </a>
+
+        <article class="panel glass project-body">
+            <span class="accent-line"></span>
+            <h1>Omni Direction Car</h1>
+
+            <!-- Photo gallery: add or remove <img> tags, main.js handles the rest -->
+            <div class="gallery">
+                <div class="gallery-frame">
+                    <img src="../assets/projecten/hardware/omni%20direction%20car/icon.png" alt="Omni Direction Car">
+                    <img src="../assets/projecten/hardware/omni%20direction%20car/1.jpg" alt="Omni Direction Car, foto 1">
+                    <img src="../assets/projecten/hardware/omni%20direction%20car/2.jpg" alt="Omni Direction Car, foto 2">
+                </div>
+            </div>
+
+            <h3>Wat is een omnidirectionele auto?</h3>
+            <p>Een gewone auto kan alleen vooruit en achteruit rijden en moet sturen om van richting te veranderen. Een omnidirectionele auto kan in elke richting bewegen zonder eerst te draaien. Hij kan zijwaarts rijden, schuin rijden en op zijn plaats ronddraaien. Dat kan dankzij speciale wielen, in dit geval mecanumwielen, waarvan de beweging per wiel anders wordt aangestuurd.</p>
+
+            <h3>Wat zijn de voordelen?</h3>
+            <ul>
+                <li>Hij is zeer wendbaar en kan zijwaarts bewegen zonder te rangeren.</li>
+                <li>Hij past op krappe plaatsen waar een gewone auto niet kan draaien.</li>
+                <li>Hij kan op zijn plaats ronddraaien.</li>
+                <li>Hij kan heel precies positioneren, bijvoorbeeld naast een obstakel of een doel.</li>
+            </ul>
+            <p>Daarom worden dit soort platformen veel gebruikt in magazijnen, fabrieken en robotica.</p>
+
+            <h3>Het project: Omni Direction Car</h3>
+            <p>Voor dit project heb ik zelf een auto gebouwd die vooruit, achteruit, links en rechts kan rijden. Alles is zelf ontworpen: de plastic buitenkant, het metalen frame, de wielen, de elektronica en de software.</p>
+
+            <h3>Constructie en aandrijving</h3>
+            <p>De auto is opgebouwd uit een metalen frame en is sterk genoeg om er zelf op te rijden. De aandrijving gebeurt door vier hoverboardwielen met zelfontworpen mecanumwielen. De stroom komt van zes grote loodzuurbatterijen.</p>
+
+            <h3>Elektronica en besturing</h3>
+            <ul>
+                <li>een LattePanda als hoofdcomputer</li>
+                <li>een touchscreen waarop alle info te zien is</li>
+                <li>vier motorcontrollers, één voor elke motor</li>
+            </ul>
+
+            <h3>Kinect en zelfnavigatie</h3>
+            <p>Aan de voorkant heb ik een Xbox One Kinect-sensor geplaatst, bedoeld voor zelfnavigatie. De software om de auto volledig zelf te laten rijden is uiteindelijk nooit afgewerkt. De sensor zit er dus wel op, maar wordt nog niet gebruikt voor autonoom rijden.</p>
+
+            <section class="project-section">
+                <h3>Hoe werkt een omnidirectionele auto?</h3>
+                <p>Voor meer info over hoe een omnidirectionele auto werkt, bekijk deze video:</p>
+                <iframe class="video-embed" src="https://www.youtube-nocookie.com/embed/noqBUEgyQ8A" title="Hoe werkt een omnidirectionele auto?" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+            </section>
+        </article>
+    </main>
+</body>
+</html>

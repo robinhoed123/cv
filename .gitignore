@@ -1,0 +1,20 @@
+# Files in this folder that are not part of the website
+
+# Word documents and Word's temporary lock files
+*.docx
+~$*
+
+# Loose PDFs in the root (the site uses assets/cv.pdf and assets/motivatiebrief.pdf)
+/*.pdf
+
+# Unused media
+assets/projecten/software/2deKans/tweede_kans.mp4
+assets/Robin.png
+assets/Robin_13.jpg
+assets/placeholder.png
+assets/projecten/hardware/orry/planeten/planetInfo.js
+
+# Personal notes per project (the texts are already in the HTML pages)
+assets/projecten/**/text
+assets/projecten/**/teks.txt
+assets/projecten/software/webshop/phpWebshop

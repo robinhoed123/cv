@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orrery – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+    <script src="../js/planets.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link active" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <a class="button glass back-button" href="hardware.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Terug naar hardware projecten
+        </a>
+
+        <article class="panel glass project-body">
+            <span class="accent-line"></span>
+            <h1>Orrery</h1>
+
+            <!-- Photo gallery: add or remove <img> tags, main.js handles the rest -->
+            <div class="gallery">
+                <div class="gallery-frame">
+                    <img src="../assets/projecten/hardware/orry/1.PNG" alt="Orrery, foto 1">
+                    <img src="../assets/projecten/hardware/orry/2.PNG" alt="Orrery, foto 2">
+                    <img src="../assets/projecten/hardware/orry/3.png" alt="Orrery, foto 3">
+                </div>
+            </div>
+
+            <h3>Tekeningen</h3>
+            <p>De orrery en de tandwielen heb ik gedownload van Thingiverse. De basis waar alle elektronische onderdelen in komen en de tandwielen die aan de motor hangen, heb ik zelf ontworpen. In totaal heb ik 12 onderdelen zelf getekend in Inventor.</p>
+
+            <h3>Elektronica</h3>
+            <p>Het project bevat de volgende componenten:</p>
+            <ul>
+                <li>een stappenmotor die alles laat draaien</li>
+                <li>een ESP32 (programmeerbare microcontroller)</li>
+                <li>een controlepaneel met lcd, zoemer en rotary encoder met drukknop, samen in één unit</li>
+                <li>een omvormer (step-down converter)</li>
+            </ul>
+            <p>De stappenmotor werkt op 12V en de ESP32 op 5V. Daarom zit er een omvormer in die de 12V DC omzet naar 5V DC voor de ESP32.</p>
+
+            <h3>Programmeren</h3>
+            <p>Ik programmeer het project in de Arduino IDE. Het programma leest de input van de gebruiker via de rotary encoder, toont informatie op de lcd en laat de stappenmotor draaien. Er zijn verschillende menuopties:</p>
+            <ul>
+                <li>de stand van de planeten bekijken op de huidige datum</li>
+                <li>de stand van de planeten bekijken op een zelf ingegeven datum</li>
+                <li>de simulatie vertragen of versnellen</li>
+            </ul>
+
+            <div class="button-group project-links">
+                <a class="button button-primary" href="https://www.thingiverse.com/thing:4613061" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+                    3D model
+                </a>
+            </div>
+        </article>
+
+        <!-- Interactive planet info: the data lives in js/planets.js -->
+        <section class="planet-explorer">
+            <div class="planet-text">
+                <div class="planet-header">
+                    <h2><label for="planet-select">Selecteer een planeet</label></h2>
+                    <select id="planet-select" class="planet-select"></select>
+                </div>
+
+                <div class="planet-card">
+                    <dl class="planet-stats">
+                        <div><dt>Gewicht</dt><dd data-field="gewicht"></dd></div>
+                        <div><dt>Diameter</dt><dd data-field="diameter"></dd></div>
+                        <div><dt>Temperatuur</dt><dd data-field="temperatuur"></dd></div>
+                        <div><dt>Afstand tot de zon</dt><dd data-field="afstand"></dd></div>
+                        <div><dt>Rotatie rond de zon</dt><dd data-field="zonrotatie"></dd></div>
+                        <div><dt>Rotatie rond as</dt><dd data-field="asrotatie"></dd></div>
+                        <div><dt>Oppervlakte</dt><dd data-field="oppervlakte"></dd></div>
+                        <div><dt>Zwaartekracht</dt><dd data-field="zwaartekracht"></dd></div>
+                        <div><dt>Manen</dt><dd data-field="manen"></dd></div>
+                        <div><dt>Atmosfeer</dt><dd data-field="atmosfeer"></dd></div>
+                    </dl>
+
+                    <p class="planet-fact"><strong>Wist je dat?</strong> <span data-field="weetje"></span></p>
+                </div>
+            </div>
+
+            <div class="planet-visual">
+                <img class="planet-image" src="../assets/projecten/hardware/orry/planeten/Rotating_earth.gif" alt="Draaiende Aarde">
+                <p class="planet-name" data-field="name"></p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

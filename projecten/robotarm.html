@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotarm – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link active" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <a class="button glass back-button" href="hardware.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Terug naar hardware projecten
+        </a>
+
+        <article class="panel glass project-body">
+            <span class="accent-line"></span>
+            <h1>Robotarm</h1>
+
+            <!-- Photo gallery: add or remove <img> tags, main.js handles the rest -->
+            <div class="gallery">
+                <div class="gallery-frame">
+                    <img src="../assets/projecten/hardware/robot%20arm/icon.PNG" alt="Robotarm">
+                    <img src="../assets/projecten/hardware/robot%20arm/2.PNG" alt="Robotarm, foto 2">
+                </div>
+            </div>
+
+            <h3>Het idee</h3>
+            <p>Het plan was om een schaakrobot te bouwen: een robotarm die de stukken verzet, met een camera boven het bord om de stand te lezen.</p>
+
+            <h3>Tekeningen</h3>
+            <p>De robotarm zelf is gebaseerd op een bestaand 3D-model van Thingiverse. De basis en de houder heb ik zelf ontworpen. In die basis komt alle elektronica.</p>
+
+            <h3>Elektronica</h3>
+            <p>In de basis zitten:</p>
+            <ul>
+                <li>de motorcontrollers voor de drie stappenmotoren</li>
+                <li>een drukknop met led om het geheel aan en uit te zetten, waarbij de kleur van de led de status weergeeft</li>
+                <li>een Raspberry Pi 4 als brein</li>
+            </ul>
+
+            <h3>Programmeren</h3>
+            <p>De aansturing gebeurt in Python op de Raspberry Pi. Elke stappenmotor kan ik afzonderlijk aansturen.</p>
+
+            <h3>Work in progress</h3>
+            <p>Hier loopt het project momenteel vast. De stappenmotoren komen uit een oude, goedkope Chinese 3D-printer en zijn niet krachtig genoeg om de arm aan te drijven. Zodra ik sterkere motoren heb, maak ik het project af.</p>
+
+            <div class="button-group project-links">
+                <a class="button button-primary" href="https://www.thingiverse.com/thing:1718984" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+                    3D model
+                </a>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

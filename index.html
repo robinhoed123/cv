@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link active" href="index.html" aria-current="page">Home</a></li>
+                <li><a class="nav-link" href="motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link" href="projecten/hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link" href="projecten/software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <!-- Photo + introduction -->
+        <section class="panel glass hero">
+            <div class="photo-frame glass">
+                <img src="assets/Robin.jpg" alt="Foto van Robin">
+            </div>
+            <div class="hero-text">
+                <span class="accent-line"></span>
+                <h1>Hallo, ik ben <span>Robin</span></h1>
+                <!-- PLACEHOLDER: replace with your own introduction -->
+                <p>Hier komt een korte introductie over wie ik ben. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p class="muted">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+                <!-- Contact buttons (only on Home) -->
+                <div class="button-group contact-buttons">
+                    <a class="button glass" href="https://www.linkedin.com/in/robin-herickx-aab396343/" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        LinkedIn
+                    </a>
+                    <a class="button glass" href="https://github.com/robinhoed123" target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                        GitHub
+                    </a>
+                    <a class="button glass" href="mailto:robin.herickx@telenet.be">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 6L2 7"/></svg>
+                        E-mail
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Purpose of the site -->
+        <section class="panel glass">
+            <span class="accent-line"></span>
+            <h2>Wat vind je hier?</h2>
+            <p>Dit is mijn persoonlijke website, waarop ik mezelf graag aan je voorstel. Je vindt hier mijn <a href="cv.html">CV</a> en mijn <a href="motivatiebrief.html">motivatiebrief</a>.</p>
+            <p>Daarnaast kan je hier de <a href="projecten/hardware.html">hardware</a>- en <a href="projecten/software.html">softwareprojecten</a> bekijken die ik door de jaren heen gemaakt heb: van zelfgebouwde robots en elektronica tot apps, webshops en AI-projecten. Bij elk project lees je wat het is en hoe ik het gemaakt heb.</p>
+        </section>
+    </main>
+</body>
+</html>

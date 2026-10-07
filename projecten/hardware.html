@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware projecten – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link active" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <header class="page-header">
+            <h1>Hardware projecten</h1>
+        </header>
+
+        <!--
+            Project list. To add a project: copy one <a class="project-card"> block
+            and change the link, image, title and description. The left/right
+            zigzag is handled automatically by the CSS.
+        -->
+        <div class="project-list">
+            <a class="project-card glass" href="omni-direction-car.html">
+                <div class="project-image fit">
+                    <img src="../assets/projecten/hardware/omni%20direction%20car/icon.png" alt="Omni Direction Car">
+                </div>
+                <div class="project-info">
+                    <h2>Omni Direction Car</h2>
+                    <p>Mijn eerste grote project dat ik volledig zelf ontworpen en uitgewerkt heb: een omnidirectionele auto met mecanumwielen die vooruit, achteruit, zijwaarts en schuin rijdt en op zijn plaats kan ronddraaien. Van het metalen frame en de plastic buitenkant tot de elektronica en de software, alles is zelf gemaakt. De auto is zelfs sterk genoeg om er zelf op te rijden.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="orrery.html">
+                <div class="project-image fit">
+                    <img src="../assets/projecten/hardware/orry/Orry%20icon.png" alt="Orrery">
+                </div>
+                <div class="project-info">
+                    <h2>Orrery</h2>
+                    <p>Ik heb een orrery gemaakt, een mechanisch model van het zonnestelsel dat wordt aangestuurd door een ESP32. Je geeft een datum in en de orrery draait de planeten naar de juiste posities voor die dag. Via een controlepaneel met lcd, zoemer en draaiknop kies je tussen de menuopties.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="papegaai.html">
+                <div class="project-image fit">
+                    <img src="../assets/projecten/hardware/papagaai/icon.png" alt="Google Home Papegaai">
+                </div>
+                <div class="project-info">
+                    <h2>Google Home Papegaai</h2>
+                    <p>Ik heb een speelgoedpapegaai gemengd met een Google Home. Het idee is dat wanneer je iets aan Google vraagt, de papegaai antwoordt. De bek gaat open en dicht op de stem van Google en hij flappert met zijn vleugels. De onderdelen zijn een Arduino Nano, Google Home, papegaai en voeding, en een behuizing voor alle elektronica.</p>
+                </div>
+            </a>
+
+            <a class="project-card glass" href="robotarm.html">
+                <div class="project-image fit">
+                    <img src="../assets/projecten/hardware/robot%20arm/icon.PNG" alt="Robotarm">
+                </div>
+                <div class="project-info">
+                    <h2>Robotarm</h2>
+                    <p>Dit project is een robotarm, bedoeld als schaakrobot met een camera boven het bord. De arm is gebaseerd op een bestaand 3D-model, met een zelf ontworpen basis waarin alle elektronica zit. Dit project is nog een work in progress.</p>
+                </div>
+            </a>
+
+        </div>
+    </main>
+</body>
+</html>

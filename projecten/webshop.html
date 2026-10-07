@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webshop – Robin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body>
+    <div class="background-blobs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <!-- Navigation (identical on every page, only the "active" class moves) -->
+    <header class="site-header">
+        <nav class="navbar glass" aria-label="Hoofdnavigatie">
+            <ul class="nav-list">
+                <li><a class="nav-link" href="../index.html">Home</a></li>
+                <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
+                <li><a class="nav-link" href="../cv.html">CV</a></li>
+                <li class="nav-dropdown">
+                    <button class="nav-link dropdown-toggle active" type="button" aria-expanded="false" aria-haspopup="true">
+                        Projecten
+                        <svg class="dropdown-arrow" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <ul class="dropdown-menu glass">
+                        <li><a class="dropdown-link" href="hardware.html">Hardware projecten</a></li>
+                        <li><a class="dropdown-link active" href="software.html">Software projecten</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page">
+        <a class="button glass back-button" href="software.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Terug naar software projecten
+        </a>
+
+        <article class="panel glass project-body">
+            <span class="accent-line"></span>
+            <h1>Webshop</h1>
+
+            <!-- Photo gallery: add or remove <img> tags, main.js handles the rest -->
+            <div class="gallery">
+                <div class="gallery-frame">
+                    <img src="../assets/projecten/software/webshop/2.PNG" alt="Webshop, screenshot 1">
+                    <img src="../assets/projecten/software/webshop/3.PNG" alt="Webshop, screenshot 2">
+                    <img src="../assets/projecten/software/webshop/4.PNG" alt="Webshop, screenshot 3">
+                    <img src="../assets/projecten/software/webshop/5.PNG" alt="Webshop, screenshot 4">
+                    <img src="../assets/projecten/software/webshop/6.PNG" alt="Webshop, screenshot 5">
+                    <img src="../assets/projecten/software/webshop/7.PNG" alt="Webshop, screenshot 6">
+                </div>
+            </div>
+
+            <p><em>Opmerking:</em> in de screenshots hierboven staat overal dezelfde afbeelding van Finding Nemo. Dat is een placeholder voor de foto's van de echte vissen en producten. Ik maakte dit project twee jaar geleden en haalde het onlangs terug van GitHub. De productfoto's zijn toen niet mee gepusht, waardoor de database met dummydata wijst naar foto's die er niet meer zijn. Ik had dit kunnen fixen, maar het leek me niet nodig: ik heb al genoeg werk met het maken van deze website, en het idee van het project is duidelijk.</p>
+
+            <h3>Het idee</h3>
+            <p>Dit project was een schoolopdracht voor het vak webdesign: een volledige webshop bouwen, van de database tot het bestellen. Ik koos zelf een thema rond vissen, met een aquariumvideo als achtergrond.</p>
+
+            <h3>Voor klanten</h3>
+            <ul>
+                <li>Je maakt een account aan en logt in. Wachtwoorden worden niet leesbaar opgeslagen maar als hash.</li>
+                <li>Op de homepagina zie je alle vissen met foto, beschrijving, gewicht, vissoort en prijs. Een zoekbalk filtert live terwijl je typt.</li>
+                <li>Ingelogde klanten kiezen een aantal (met de voorraad als maximum) en voegen het toe aan het winkelmandje.</li>
+                <li>In het winkelmandje zie je een factuur met de totaalprijs. Je kan items verwijderen of het hele mandje leegmaken. Met "bestel" wordt de bestelling in de database opgeslagen.</li>
+                <li>Op de accountpagina kan je je gegevens aanpassen.</li>
+            </ul>
+
+            <h3>Voor admins</h3>
+            <ul>
+                <li>Een aparte adminpagina, alleen toegankelijk met een adminaccount. Anderen worden doorgestuurd.</li>
+                <li>Producten toevoegen en aanpassen, inclusief het uploaden van een foto.</li>
+                <li>Klanten bekijken, bewerken en verwijderen. Verwijderen gebeurt "zacht": de klant wordt als verwijderd gemarkeerd en niet echt uit de database gehaald, zodat oude bestellingen bewaard blijven.</li>
+            </ul>
+
+            <h3>Techniek</h3>
+            <ul>
+                <li>PHP voor de logica en sessies, MySQL voor de data, met aparte tabellen voor personen, producten, bestellingen en bestelde producten.</li>
+                <li>Het winkelmandje wordt in de sessie bijgehouden en pas bij het bestellen naar de database geschreven.</li>
+                <li>JavaScript voor de formuliervalidatie en de live zoekfunctie.</li>
+                <li>HTML en CSS voor de opmaak, met eigen stijlbladen per pagina.</li>
+            </ul>
+        </article>
+    </main>
+</body>
+</html>
