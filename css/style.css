@@ -461,25 +461,6 @@ body::before {
     text-align: center;
 }
 
-/* Company logo above the motivation letter */
-.company-logo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 28px;
-}
-
-.company-logo img {
-    height: 120px;
-    width: auto;
-    border-radius: 16px;
-    box-shadow: var(--shadow-soft);
-}
-
-.pdf-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 24px;
-}
 
 /* ---------- Project list (zigzag) ---------- */
 

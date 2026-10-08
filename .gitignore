@@ -18,3 +18,7 @@ assets/projecten/hardware/orry/planeten/planetInfo.js
 assets/projecten/**/text
 assets/projecten/**/teks.txt
 assets/projecten/software/webshop/phpWebshop
+
+# Backups and Word temp files
+*.bak
+~WRL*.tmp
