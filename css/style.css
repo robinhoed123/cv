@@ -241,6 +241,12 @@ body::before {
     outline-offset: 3px;
 }
 
+/* "?x" version of the site (set by main.js): no Motivatiebrief button or mention */
+.no-motivatiebrief .nav-list li:has(> a[href$="motivatiebrief.html"]),
+.no-motivatiebrief .motivatiebrief-only {
+    display: none;
+}
+
 /* ---------- Projects dropdown ---------- */
 
 .nav-dropdown {

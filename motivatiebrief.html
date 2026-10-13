@@ -39,12 +39,12 @@
             <h1>Motivatiebrief</h1>
         </header>
 
-        <!-- To swap the letter: overwrite assets/motivatiebrief.pdf, no code changes needed -->
+        <!-- Which PDF is shown is chosen in js/main.js (see MOTIVATIEBRIEVEN there) -->
         <section class="panel glass pdf-panel">
-            <object class="pdf-viewer" data="assets/motivatiebrief.pdf" type="application/pdf">
+            <object class="pdf-viewer" data-motivatiebrief type="application/pdf">
                 <div class="pdf-fallback">
                     <p>Je browser kan deze PDF niet weergeven.</p>
-                    <a class="button button-primary" href="assets/motivatiebrief.pdf" download>Download de motivatiebrief</a>
+                    <a class="button button-primary" href="assets/motivatiebrieven/motivatiebrief.pdf" download>Download de motivatiebrief</a>
                 </div>
             </object>
         </section>

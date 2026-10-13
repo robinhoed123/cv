@@ -3,9 +3,83 @@
    - Projects dropdown (open on click, close on outside click / Escape)
    - Subtle fade when navigating between pages
    - Project photo galleries (click the photo for the next one)
+   - Motivation letter per company (?bedrijf in the address)
    ========================================================= */
 
+/* ---------- Motivation letter per company ----------
+   Share the site as  .../cv/?robonext  -> the Motivatiebrief page shows that company's letter.
+   Share it as        .../cv/?x         -> the Motivatiebrief button disappears everywhere.
+   Without anything the default letter is shown.
+   The choice is remembered while the browser tab stays open.
+
+   To add a company: put the PDF in assets/motivatiebrieven/ and add a line below.
+   The key (left) is what goes after the ? in the address, written in lowercase. */
+
+const MOTIVATIEBRIEVEN = {
+    robonext: "Robonext_motivatieBrief.pdf",
+};
+
+const MOTIVATIEBRIEF_FOLDER = "assets/motivatiebrieven/";
+const DEFAULT_MOTIVATIEBRIEF = "motivatiebrief.pdf";
+const HIDE_MOTIVATIEBRIEF_KEY = "x";
+const MOTIVATIEBRIEF_STORAGE_KEY = "motivatiebrief";
+
+const motivatiebriefChoice = readMotivatiebriefChoice();
+if (motivatiebriefChoice === HIDE_MOTIVATIEBRIEF_KEY) {
+    // Set right away so the button is hidden before the page fades in
+    document.documentElement.classList.add("no-motivatiebrief");
+}
+
+function readMotivatiebriefChoice() {
+    // "?robonext" or "?robonext&..." -> "robonext"
+    const fromAddress = window.location.search.slice(1).split(/[&=]/)[0].toLowerCase();
+
+    if (fromAddress) {
+        const isKnown = fromAddress === HIDE_MOTIVATIEBRIEF_KEY || fromAddress in MOTIVATIEBRIEVEN;
+        try {
+            if (isKnown) {
+                sessionStorage.setItem(MOTIVATIEBRIEF_STORAGE_KEY, fromAddress);
+            } else {
+                sessionStorage.removeItem(MOTIVATIEBRIEF_STORAGE_KEY);
+            }
+        } catch {
+            // Storage blocked (e.g. private mode): the choice then only applies to this page
+        }
+        return isKnown ? fromAddress : "";
+    }
+
+    try {
+        return sessionStorage.getItem(MOTIVATIEBRIEF_STORAGE_KEY) || "";
+    } catch {
+        return "";
+    }
+}
+
+function setupMotivatiebrief() {
+    const viewer = document.querySelector("[data-motivatiebrief]");
+
+    if (motivatiebriefChoice === HIDE_MOTIVATIEBRIEF_KEY) {
+        // Someone landing on the letter page directly in the "x" version goes home instead
+        if (viewer) window.location.replace("index.html");
+        return;
+    }
+
+    if (!viewer) return;
+
+    const file = MOTIVATIEBRIEVEN[motivatiebriefChoice] || DEFAULT_MOTIVATIEBRIEF;
+    const url = MOTIVATIEBRIEF_FOLDER + file;
+
+    // A fresh <object> is the reliable way to make every browser load the chosen PDF
+    const freshViewer = viewer.cloneNode(true);
+    freshViewer.data = url;
+    freshViewer.querySelectorAll("a[download]").forEach((link) => {
+        link.href = url;
+    });
+    viewer.replaceWith(freshViewer);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    setupMotivatiebrief();
     setupDropdowns();
     setupPageTransitions();
     setupGalleries();
