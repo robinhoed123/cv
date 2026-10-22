@@ -81,14 +81,154 @@ function setupMotivatiebrief() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    setupMotivatiebrief();
+    setupMotivatiebrief(); // must run before setupPdfViewers: it picks which PDF to show
+    setupMobileMenu();
     setupDropdowns();
     setupPageTransitions();
     setupGalleries();
+    setupPdfViewers();
 });
+
+/* ---------- Mobile menu (the ☰ button, only visible on phones) ---------- */
+
+function setupMobileMenu() {
+    const navbar = document.querySelector(".navbar");
+    const toggle = navbar && navbar.querySelector(".nav-toggle");
+    if (!toggle) return;
+
+    function setOpen(isOpen) {
+        navbar.classList.toggle("menu-open", isOpen);
+        toggle.setAttribute("aria-expanded", String(isOpen));
+        toggle.setAttribute("aria-label", isOpen ? "Menu sluiten" : "Menu openen");
+    }
+
+    toggle.addEventListener("click", (event) => {
+        event.stopPropagation();
+        setOpen(!navbar.classList.contains("menu-open"));
+    });
+
+    // Close when tapping outside the menu, pressing Escape, or coming back with the back button
+    document.addEventListener("click", (event) => {
+        if (!navbar.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setOpen(false);
+    });
+    window.addEventListener("pageshow", () => setOpen(false));
+}
+
+/* ---------- PDFs on phones ----------
+   Phones can't show a PDF inside a page (Android shows nothing, iPhone only page 1).
+   There, PDF.js draws every page as an image instead. On a PC the normal viewer stays. */
+
+const PDFJS_URL = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+const PDFJS_WORKER_URL = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+const PHONE_MEDIA_QUERY = "(max-width: 760px)"; // keep equal to the Mobile section in style.css
+const PDF_MAX_PIXEL_RATIO = 3; // sharper text when zooming in, capped to spare phone memory
+
+function setupPdfViewers() {
+    const viewers = document.querySelectorAll("object.pdf-viewer");
+    const needsPdfJs = window.matchMedia(PHONE_MEDIA_QUERY).matches || navigator.pdfViewerEnabled === false;
+    if (viewers.length === 0 || !needsPdfJs) return;
+
+    loadScript(PDFJS_URL)
+        .then(() => {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER_URL;
+            viewers.forEach(drawPdf);
+        })
+        .catch(() => {
+            // PDF.js could not load: the normal viewer with its download link stays
+        });
+}
+
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.append(script);
+    });
+}
+
+async function drawPdf(viewer) {
+    const container = document.createElement("div");
+    container.className = "pdf-pages";
+    container.innerHTML = '<p class="pdf-loading muted">PDF laden…</p>';
+    viewer.replaceWith(container);
+
+    try {
+        const pdf = await window.pdfjsLib.getDocument(viewer.getAttribute("data")).promise;
+        const firstPage = await pdf.getPage(1);
+        const size = firstPage.getViewport({ scale: 1 });
+        container.textContent = "";
+
+        // Only pages near the screen are drawn; pages far away are cleared again to save memory
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(({ target, isIntersecting }) => {
+                if (isIntersecting) drawPdfPage(pdf, target);
+                else clearPdfPage(target);
+            });
+        }, { rootMargin: "1200px 0px" });
+
+        for (let number = 1; number <= pdf.numPages; number++) {
+            const holder = document.createElement("div");
+            holder.className = "pdf-page";
+            holder.dataset.page = number;
+            holder.style.aspectRatio = `${size.width} / ${size.height}`;
+            container.append(holder);
+            observer.observe(holder);
+        }
+    } catch {
+        // Could not read the PDF: put the normal viewer back
+        container.replaceWith(viewer);
+    }
+}
+
+async function drawPdfPage(pdf, holder) {
+    if (holder.querySelector("canvas") || holder.drawing) return;
+    const drawId = (holder.drawId || 0) + 1;
+    holder.drawId = drawId;
+    holder.drawing = true;
+
+    const page = await pdf.getPage(Number(holder.dataset.page));
+    const baseViewport = page.getViewport({ scale: 1 });
+    const pixelRatio = Math.min((window.devicePixelRatio || 1) * 1.5, PDF_MAX_PIXEL_RATIO);
+    const viewport = page.getViewport({ scale: (holder.clientWidth / baseViewport.width) * pixelRatio });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.floor(viewport.width);
+    canvas.height = Math.floor(viewport.height);
+    canvas.setAttribute("role", "img");
+    canvas.setAttribute("aria-label", `Pagina ${holder.dataset.page}`);
+    await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+
+    // The page may have been scrolled far away (and cleared) while it was drawing
+    if (holder.drawId !== drawId) {
+        canvas.width = 0;
+        canvas.height = 0;
+        return;
+    }
+    holder.drawing = false;
+    holder.style.aspectRatio = `${baseViewport.width} / ${baseViewport.height}`;
+    holder.append(canvas);
+}
+
+function clearPdfPage(holder) {
+    holder.drawId = (holder.drawId || 0) + 1;
+    holder.drawing = false;
+    const canvas = holder.querySelector("canvas");
+    if (canvas) {
+        canvas.width = 0;
+        canvas.height = 0;
+        canvas.remove();
+    }
+}
 
 /* ---------- Photo galleries ---------- */
 
+const SWIPE_MIN_DISTANCE = 40; // px a finger must move sideways to count as a swipe
+const SWIPE_CLICK_IGNORE_MS = 500;
 const NEXT_ARROW_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>';
 
 function setupGalleries() {
@@ -137,7 +277,30 @@ function setupGalleries() {
             counter.textContent = `${current + 1} / ${images.length}`;
         }
 
-        frame.addEventListener("click", () => show(current + 1));
+        // Swipe on touch screens: left = next photo, right = previous photo
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let lastSwipeTime = 0;
+
+        frame.addEventListener("touchstart", (event) => {
+            touchStartX = event.changedTouches[0].clientX;
+            touchStartY = event.changedTouches[0].clientY;
+        }, { passive: true });
+
+        frame.addEventListener("touchend", (event) => {
+            const deltaX = event.changedTouches[0].clientX - touchStartX;
+            const deltaY = event.changedTouches[0].clientY - touchStartY;
+            if (Math.abs(deltaX) > SWIPE_MIN_DISTANCE && Math.abs(deltaX) > Math.abs(deltaY)) {
+                lastSwipeTime = Date.now();
+                show(current + (deltaX < 0 ? 1 : -1));
+            }
+        });
+
+        frame.addEventListener("click", () => {
+            // The click some phones fire right after a swipe must not count as an extra tap
+            if (Date.now() - lastSwipeTime < SWIPE_CLICK_IGNORE_MS) return;
+            show(current + 1);
+        });
         frame.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();

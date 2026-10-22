@@ -17,7 +17,11 @@
     <!-- Navigation (identical on every page, only the "active" class moves) -->
     <header class="site-header">
         <nav class="navbar glass" aria-label="Hoofdnavigatie">
-            <ul class="nav-list">
+            <a class="nav-brand" href="../index.html">Robin</a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-list" aria-label="Menu openen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="nav-toggle-open" d="M4 7h16M4 12h16M4 17h16"/><path class="nav-toggle-close" d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <ul class="nav-list" id="nav-list">
                 <li><a class="nav-link" href="../index.html">Home</a></li>
                 <li><a class="nav-link" href="../motivatiebrief.html">Motivatiebrief</a></li>
                 <li><a class="nav-link" href="../cv.html">CV</a></li>
