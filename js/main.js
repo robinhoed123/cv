@@ -19,6 +19,7 @@ const MOTIVATIEBRIEVEN = {
     robonext: "Robonext_motivatieBrief.pdf",
     ixor: "Ixor_motivatieBrief.pdf",
     boi: "BOI_motivatieBrief.pdf",
+    vanbreda: "Vanbreda_motivatieBrief.pdf",
 };
 
 const MOTIVATIEBRIEF_FOLDER = "assets/motivatiebrieven/";
