@@ -21,6 +21,7 @@ const MOTIVATIEBRIEVEN = {
     boi: "BOI_motivatieBrief.pdf",
     vanbreda: "Vanbreda_motivatieBrief.pdf",
     bosch: "Bosch_motivatieBrief.pdf",
+    kwery: "Kwery_motivatieBrief.pdf",
 };
 
 const MOTIVATIEBRIEF_FOLDER = "assets/motivatiebrieven/";
