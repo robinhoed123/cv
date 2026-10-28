@@ -24,6 +24,9 @@ const MOTIVATIEBRIEVEN = {
     kwery: "Kwery_motivatieBrief.pdf",
     itplanet: "ITPlanet_motivatieBrief.pdf",
     keyes: "KEYES_motivatieBrief.pdf",
+    azsintmaarten: "AZSintMaarten_motivatieBrief.pdf",
+    peleman: "Peleman_motivatieBrief.pdf",
+    actief: "Actief_motivatieBrief.pdf",
 };
 
 const MOTIVATIEBRIEF_FOLDER = "assets/motivatiebrieven/";
